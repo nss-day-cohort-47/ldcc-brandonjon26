@@ -11,7 +11,7 @@ export const renderToppings = (allToppings) => {
 	})
 
 	toppingTarget.innerHTML = `
-	<select class = "toppingDropdown">${toppingOptions}</select>
+	<select id="toppingDropdown" class = "btn-info toppingDropdown"><option value=0>Select A Topping</option>${toppingOptions}</select>
 	`
 }
 
