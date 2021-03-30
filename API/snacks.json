@@ -141,7 +141,7 @@
       "inFlavorId": 3,
       "seasonId": 1,
       "description": "Oatmeal puffs with a tasty crème-flavored coating deliver a wonderful burst of flavor in every bite.",
-      "toppings": "Milk",
+      "toppings": "Milk and White Icing",
       "id": 12
     }
   ],
@@ -315,6 +315,16 @@
       "id": 20,
       "snackId": 11,
       "toppingId": 16
+    },
+    {
+      "snackId": 12,
+      "toppingId": 17,
+      "id": 21
+    },
+    {
+      "snackId": 12,
+      "toppingId": 4,
+      "id": 22
     }
   ],
   "inFlavors": [
@@ -413,6 +423,10 @@
     {
       "id": 5,
       "name": "Cordial"
+    },
+    {
+      "name": "Cereal",
+      "id": 6
     }
   ],
   "shapes": [
