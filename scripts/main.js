@@ -2,14 +2,13 @@ console.log('yum, yum, yum');
 
 import { LoginForm } from "./auth/LoginForm.js";
 import { RegisterForm } from "./auth/RegisterForm.js";
-import { NavBar, populateToppings, renderToppings } from "./nav/NavBar.js";
+import { NavBar, populateToppings } from "./nav/NavBar.js";
 import { SnackList } from "./snacks/SnackList.js";
 import { SnackDetails } from "./snacks/SnackDetails.js";
 import { Footer } from "./nav/Footer.js";
 import {
 	logoutUser, setLoggedInUser, loginUser, registerUser, getLoggedInUser,
-	getSnacks, getSingleSnack, getToppings, getSnackToppings, useSnackToppingsCollection, 
-	getSnackByTopping
+	getSnacks, getSingleSnack, getToppings, getSnackToppings, getSnackByTopping
 } from "./data/apiManager.js";
 
 
@@ -89,14 +88,14 @@ applicationElement.addEventListener("change", event => {
 	if (event.target.id === "toppingDropdown") {
 		let snackSelector = event.target.value
 		getSnackByTopping(snackSelector)
-		.then(response => {
-			let selectedToppingArray = [];
-			response.forEach(topping => {
-				selectedToppingArray.push(topping.snack)
+			.then(response => {
+				let selectedToppingArray = [];
+				response.forEach(topping => {
+					selectedToppingArray.push(topping.snack)
+				})
+				const listElement = document.querySelector("#mainContent")
+				listElement.innerHTML = SnackList(selectedToppingArray)
 			})
-			const listElement = document.querySelector("#mainContent")
-			listElement.innerHTML = SnackList(selectedToppingArray)
-		})
 	}
 })
 
@@ -124,11 +123,8 @@ const showLoginRegister = () => {
 }
 
 const showNavBar = () => {
-	const toppingList = useSnackToppingsCollection();
-	console.log(toppingList)
 
 	applicationElement.innerHTML += NavBar();
-	renderToppings(toppingList);
 }
 
 const showSnackList = () => {
@@ -150,12 +146,16 @@ const showFooter = () => {
 }
 
 const startLDSnacks = () => {
-	applicationElement.innerHTML = "";
-	showNavBar();
-	applicationElement.innerHTML += `<div id="mainContent"></div>`;
-	showSnackList();
-	showFooter();
-	populateToppings();
+	getSnackToppings()
+		.then(() => {
+			applicationElement.innerHTML = "";
+			showNavBar();
+			applicationElement.innerHTML += `<div id="mainContent"></div>`;
+			showSnackList();
+			showFooter();
+			populateToppings();
+		})
+
 
 }
 
