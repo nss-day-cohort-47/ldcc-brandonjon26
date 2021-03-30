@@ -2,17 +2,13 @@ import { getLoggedInUser } from "../data/apiManager.js"
 
 import { useSnackToppingsCollection, getSnackToppings } from "../data/apiManager.js"
 
-export const renderToppings = (allToppings) => {
+export const renderToppings = () => {
+	const toppingList = useSnackToppingsCollection();
 
-	const toppingTarget = document.querySelector(".toppingDropdown")
-
-	let toppingOptions = allToppings.map(singleTopping => {
+	let toppingOptions = toppingList.map(singleTopping => {
 		return `<option value="${singleTopping.id}">${singleTopping.name}</option>`
 	})
-
-	toppingTarget.innerHTML = `
-	<select id="toppingDropdown" class = "btn-info toppingDropdown"><option value=0>Select A Topping</option>${toppingOptions}</select>
-	`
+	return toppingOptions
 }
 
 export const populateToppings = () => {
@@ -37,7 +33,7 @@ export const NavBar = () => {
 		</li>
 		<li class="nav-item ms-1">
 		<div class ="toppingDropdown"  aria-label="Select A Topping">
-				
+		<select id="toppingDropdown" class = "btn-info toppingDropdown"><option value=0>Select A Topping</option>${renderToppings()}</select>	
 		</div>
 		</li>
 		<li class="nav-item ms-1">
